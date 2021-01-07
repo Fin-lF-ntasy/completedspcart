@@ -1,0 +1,56 @@
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+/* --- HEADER --- */
+.header.container {
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumb {
+  color: #7d7d7d;
+}
+
+.breadcrumbUl {
+  padding: 0;
+  list-style-type: none;
+  margin: 0
+}
+
+.crumbLi {
+  float: left;
+  padding: 0 6px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.header .breadcrumb .crumbLi:first {
+  padding-left: 2px;
+}
+
+.header .breadcrumb .crumbLi:not(:last-child)::after {
+  content: " \276f";
+  padding-left: 8px;
+}
+
+.header .count {
+  float: right;
+  color: #333333;
+  height: 20px;
+  line-height: 20px;
+}
+
+/* --- MEDIUM & LARGE SCREEN --- */
+@media all and (min-width: 600px) {
+
+
+  .container {
+    width: 75%;
+    max-width: 960px;
+  }
+
+
+}

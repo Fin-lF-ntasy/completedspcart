@@ -1,0 +1,138 @@
+
+.row {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.col,
+.quantity,
+.remove {
+  float: left;
+}
+
+.col.left {
+  width: 70%;
+}
+
+.col.right {
+  width: 30%;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 30px);
+}
+
+.detail {
+  padding: 0 0.5rem;
+  line-height: 2.2rem;
+}
+
+.detail .name {
+  font-size: 1.2rem;
+}
+
+.detail .name a {
+  text-decoration: none;
+  color: #333333;
+}
+
+.detail .name a:hover {
+  color: orange;
+}
+
+.detail .description {
+  color: #7d7d7d;
+  font-size: 1rem;
+}
+
+.detail .price {
+  font-size: 1.5rem;
+}
+
+.quantity,
+.remove {
+  width: 50%;
+  text-align: center;
+}
+
+.remove .close {
+  width: 60px;
+  height: 60px;
+}
+
+.quantity .numberIp  {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  left: calc(50% - 30px);
+  background: #fff;
+  border: 2px solid #ddd;
+  color: #7f7f7f;
+  text-align: center;
+  font: 600 1.5rem Helvetica, Arial, sans-serif;
+}
+
+.quantity .numberIp :hover,
+.quantity .numberIp :focus {
+  border-color: #f58551;
+}
+
+.close {
+  fill: #7d7d7d;
+  transition: color 150ms linear, background-color 150ms linear,
+    fill 150ms linear, 150ms opacity linear;
+  cursor: pointer;
+}
+
+.close:hover {
+  fill: #f58551;
+}
+
+.thumbnail img {
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+/* --- SMALL SCREEN --- */
+@media all and (max-width: 599px) {
+  .thumbnail img {
+    display: none;
+  }
+
+  .quantity .numberIp  {
+    width: 40px;
+    height: 40px;
+    left: calc(50% - 20px);
+  }
+
+  .remove .close {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* --- MEDIUM & LARGE SCREEN --- */
+@media all and (min-width: 600px) {
+
+  .thumbnail,
+  .detail {
+    float: left;
+  }
+
+  .thumbnail {
+    width: 15vw;
+    height: 15vw;
+  }
+
+  .detail {
+    width: 65%;
+    margin-left: 3vw;
+
+  }
+
+
+}
