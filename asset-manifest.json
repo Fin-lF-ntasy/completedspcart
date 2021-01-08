@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/completedspcart/static/css/main.f8945d68.chunk.css",
+    "main.js": "/completedspcart/static/js/main.a87f27d6.chunk.js",
+    "main.js.map": "/completedspcart/static/js/main.a87f27d6.chunk.js.map",
+    "runtime-main.js": "/completedspcart/static/js/runtime-main.57fefa77.js",
+    "runtime-main.js.map": "/completedspcart/static/js/runtime-main.57fefa77.js.map",
+    "static/js/2.9e0a4e63.chunk.js": "/completedspcart/static/js/2.9e0a4e63.chunk.js",
+    "static/js/2.9e0a4e63.chunk.js.map": "/completedspcart/static/js/2.9e0a4e63.chunk.js.map",
+    "index.html": "/completedspcart/index.html",
+    "static/css/main.f8945d68.chunk.css.map": "/completedspcart/static/css/main.f8945d68.chunk.css.map",
+    "static/js/2.9e0a4e63.chunk.js.LICENSE.txt": "/completedspcart/static/js/2.9e0a4e63.chunk.js.LICENSE.txt",
+    "static/media/apple.cb9ad258.png": "/completedspcart/static/media/apple.cb9ad258.png",
+    "static/media/grapefruit.c843c191.jpg": "/completedspcart/static/media/grapefruit.c843c191.jpg",
+    "static/media/pineapple.a99ee70b.png": "/completedspcart/static/media/pineapple.a99ee70b.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.57fefa77.js",
+    "static/js/2.9e0a4e63.chunk.js",
+    "static/css/main.f8945d68.chunk.css",
+    "static/js/main.a87f27d6.chunk.js"
+  ]
+}
