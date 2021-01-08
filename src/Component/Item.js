@@ -1,12 +1,12 @@
 import classes from './Item.module.css';
 
-function Item({name, description, quantity, price, img, changeQuantity, removeItem}) {
+function Item({name, description, quantity, price, img, changeQuantity, removeProduct, formatCurrency}) {
 
   return (
     <li className={classes.row}>
         <div className={`${classes.col} ${classes.left}`}>
           <div className={classes.thumbnail}>
-            <a href="/">
+            <a href="#">
               <img src= {img} alt={`Ảnh ${name}`}/>
             </a>
           </div>
@@ -15,13 +15,13 @@ function Item({name, description, quantity, price, img, changeQuantity, removeIt
             <div className={classes.description}>
               {description}
             </div>
-            <div className={classes.price}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)}</div>
+            <div className={classes.price}>{formatCurrency(price)}</div>
           </div>
         </div>
 
         <div className={`${classes.col} ${classes.right}`}>
           <div className={classes.quantity}>
-            <input type="number" min ="0" className={classes.numberIp} defaultValue={quantity} onChange={event => changeQuantity(event, name)}/>
+            <input type="number" min ="0" className={classes.numberIp} defaultValue={quantity} onChange={event => changeQuantity(event.target.value, name)}/>
           </div>
 
           <div className={classes.remove}>
@@ -35,7 +35,7 @@ function Item({name, description, quantity, price, img, changeQuantity, removeIt
               viewBox="0 0 60 60"
               enableBackground="new 0 0 60 60"
               xmlSpace="preserve"
-              onClick={() => removeItem(name)}
+              onClick={() => removeProduct(name)}
             >
               <polygon
                 points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"

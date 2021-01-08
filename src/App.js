@@ -8,93 +8,93 @@ import Checkout from './Component/Checkout';
 import Item from './Component/Item';
 import Promocode from './Component/Promocode';
 
-let PRODUCTS = getProducts();
-let PROMOCODES = getPromocodes();
+let PRODUCTS = [...getProducts()];
+let PROMOCODES = [...getPromocodes()];
 
 function App() {
   const [products, setProduct] = useState(PRODUCTS);
-  let [takediscount, setDiscount] = useState(0);
-  let items = [];
-  let promocodes = PROMOCODES.map(e => <Promocode
-                      code = {e.code}
-                      discount = {e.discount}
-                      key = {e.code}
-                      billgreater = {e.billgreater}
-                   />);
+  const [promoInput, setPromoInput] = useState('');
+  const [appliedPromo, setAppliedPromo] = useState(PROMOCODES[0]);
+
+  const createProductsCpn = () =>
+     products.map(product => (
+       <Item
+          name = {product.name}
+          description = {product.description}
+          quantity = {product.quantity}
+          unit = {product.unit}
+          price = {product.price}
+          key = {product.key}
+          img = {product.img}
+          changeQuantity = {changeQuantity}
+          removeProduct = {removeProduct}
+          formatCurrency = {formatCurrency}
+        />
+      )
+    );
+
+  const createPrmCodeCpn = () =>
+    PROMOCODES.map(e => (
+      <Promocode
+         code = {e.code}
+         discount = {e.discount}
+         key = {e.code}
+         billgreater = {e.billgreater}
+      />
+      )
+    );
+
   let reducer = (accumulator, currentValue) => accumulator + currentValue;
-  let totalItems = 0;
-  let subTotal = 0;
-  let tax = 0;
-  let total = 0;
-  let codeInput = document.getElementById('code');
+  const calculateTotalItems = () =>
+    products.map(product => product.quantity).reduce(reducer, 0);
+  const calculatesubTotal = () =>
+    Math.floor(products.map(product => product.quantity * product.price).reduce(reducer, 0));
+  const calculateTax = () => calculatesubTotal() * 0.1;
 
-  items = products.map(e => <Item
-                name = {e.name}
-                description = {e.description}
-                quantity = {e.quantity}
-                unit = {e.unit}
-                price = {e.price}
-                key = {e.key}
-                img = {e.img}
-                changeQuantity = {changeQuantity}
-                removeItem = {removeItem}
-              />);
-  totalItems = products.map(e => e.quantity).reduce(reducer);
-  subTotal = Math.floor(products.map(e => e.quantity * e.price).reduce(reducer));
-  tax = subTotal * 0.1;
-  total = subTotal + tax - takediscount;
-
-  function changeQuantity(event, name) {
-    let valueChange = parseInt(event.target.value);
+  const changeQuantity = (value, name) =>
     setProduct(
-      products.map(e => {
-        if (e.name !== name) return e
-        else {
-          let p = {...e};
-          p.quantity = valueChange;
-          return p
-        }
+      products.map(product => {
+      if (product.name !== name) return product;
+      product.quantity = parseInt(value);
+      return product;
       })
-    );
-  }
+    )
 
-  function removeItem(name) {
-    setProduct(
-      products.filter(e => e.name !== name)
-    );
-  }
+  const removeProduct = (name) =>
+    setProduct(products.filter(product => product.name !== name));
 
-  function applyCode() {
-    codeInput = document.getElementById('code');
-    if (PROMOCODES.find(e => e.code === codeInput.value).billgreater > subTotal) {
-      return
+  const applyCode = () => {
+    const matchPrm = PROMOCODES.find(promocode => promocode.code === promoInput);
+    if (matchPrm && matchPrm.billgreater <= calculatesubTotal()) {
+      setAppliedPromo(matchPrm);
     }
-    let newdiscount = PROMOCODES.filter(e => e.billgreater <= subTotal).find(e => e.code === codeInput.value);
-    console.log(PROMOCODES.filter(e => e.billgreater <= subTotal));
-    setDiscount(
-      takediscount = newdiscount.discount / 100 * subTotal
-    );
-    console.log(takediscount);
-
   }
 
+  const calculateTotal = () =>
+    calculatesubTotal() + calculateTax() - calculateDiscount();
+
+  const calculateDiscount = () =>
+    appliedPromo.discount / 100 * calculatesubTotal();
+
+  const formatCurrency = (value) =>
+    new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
 
   return (
     <div>
-      <Header totalItems = {totalItems}/>
+      <Header totalItems = {calculateTotalItems()}/>
       <section className={styles.container}>
         <ul className={styles.products}>
-          {items}
+          {createProductsCpn()}
         </ul>
       </section>
       <section className={styles.container}>
         <div className={styles.promotion}>
           <label className={styles.promocodeLabel} htmlFor="promo-code">Have A Promo Code?</label>
-          <input id="code" type="text" className={styles.promoCodeip} /> <button type="button" className={styles.button} onClick={() => applyCode()}></button>
+          <input id="code" type="text" className={styles.promoCodeip} onChange={(e) => setPromoInput(e.target.value)} /> <button type="button" className={styles.button} onClick={() => applyCode()}></button>
           <span className={styles.note} id="note"></span>
-          {promocodes}
+          {createPrmCodeCpn()}
         </div>
-        <Checkout subTotal = {subTotal} tax = {tax} total = {total} discount = {takediscount}/>
+        <Checkout subTotal = {calculatesubTotal()} tax = {calculateTax()} total = {calculateTotal()} discount = {calculateDiscount()} formatCurrency={formatCurrency}/>
         <div className={styles.checkout}>
           <button type="button" className={styles.button}>Check Out</button>
         </div>
